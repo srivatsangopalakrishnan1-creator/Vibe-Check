@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anu's Official Vibe Assessment</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Segoe UI, Arial, sans-serif;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:800px;
+background:#1e293b;
+padding:30px;
+border-radius:20px;
+box-shadow:0 0 40px rgba(0,0,0,.4);
+}
+
+h1,h2,h3{
+text-align:center;
+}
+
+.hero-gif{
+display:block;
+margin:0 auto 20px;
+border-radius:15px;
+max-width:300px;
+}
+
+.question{
+margin-bottom:25px;
+padding:15px;
+background:#273549;
+border-radius:12px;
+}
+
+label{
+display:block;
+margin:10px 0;
+cursor:pointer;
+}
+
+input[type="radio"]{
+margin-right:10px;
+}
+
+button{
+background:#38bdf8;
+border:none;
+padding:12px 24px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin:5px;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.hidden{
+display:none;
+}
+
+.meter{
+height:28px;
+background:#334155;
+border-radius:30px;
+overflow:hidden;
+margin-top:20px;
+}
+
+.fill{
+height:100%;
+width:0%;
+transition:width 2s ease;
+background:linear-gradient(
+90deg,
+#ef4444,
+#facc15,
+#22c55e
+);
+}
+
+.result-card{
+margin-top:20px;
+padding:20px;
+background:#273549;
+border-radius:15px;
+text-align:center;
+}
+
+.footer{
+margin-top:25px;
+text-align:center;
+opacity:.7;
+font-size:14px;
+}
+
+#gifContainer{
+text-align:center;
+margin-top:20px;
+}
+
+#gifContainer img{
+border-radius:15px;
+max-width:320px;
+}
+
+.small-text{
+text-align:center;
+font-style:italic;
+opacity:.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="quiz">
+
+<img
+src="gifs/joey-how-you-doin.gif"
+class="hero-gif">
+
+<h1>✨ Anu's Official Vibe Assessment ✨</h1>
+
+<p style="text-align:center;">
+Authorized by absolutely nobody.
+</p>
+
+<p style="text-align:center;">
+A scientifically unscientific compatibility assessment.
+</p>
+
+<div class="question">
+<h3>1. How long should it normally take you to reply?</h3>
+<label><input type="radio" name="q1" value="10"> Under 10 minutes</label>
+<label><input type="radio" name="q1" value="8"> Within an hour</label>
+<label><input type="radio" name="q1" value="6"> Same day</label>
+<label><input type="radio" name="q1" value="4"> Depends</label>
+<label><input type="radio" name="q1" value="0"> What is a reply?</label>
+</div>
+
+<div class="question">
+<h3>2. A message arrives from someone you like.</h3>
+<label><input type="radio" name="q2" value="10"> Reply immediately</label>
+<label><input type="radio" name="q2" value="8"> Pretend to be busy first</label>
+<label><input type="radio" name="q2" value="6"> Reply later</label>
+<label><input type="radio" name="q2" value="3"> Open and forget</label>
+<label><input type="radio" name="q2" value="0"> Vanish into another dimension</label>
+</div>
+
+<div class="question">
+<h3>3. Communication Style?</h3>
+<label><input type="radio" name="q3" value="10"> Golden Retriever</label>
+<label><input type="radio" name="q3" value="8"> Normal Human</label>
+<label><input type="radio" name="q3" value="6"> Mysterious</label>
+<label><input type="radio" name="q3" value="3"> Secret Agent</label>
+<label><input type="radio" name="q3" value="0"> Witness Protection Program</label>
+</div>
+
+<div class="question">
+<h3>4. Someone sends you a meme.</h3>
+<label><input type="radio" name="q4" value="10"> Send a better meme</label>
+<label><input type="radio" name="q4" value="8"> React instantly</label>
+<label><input type="radio" name="q4" value="6"> Respond later</label>
+<label><input type="radio" name="q4" value="3"> Like and disappear</label>
+<label><input type="radio" name="q4" value="0"> Return after three weeks</label>
+</div>
+
+<div class="question">
+<h3>5. Your comeback message after disappearing?</h3>
+<label><input type="radio" name="q5" value="10"> Sorry, life got busy</label>
+<label><input type="radio" name="q5" value="7"> Heyyy 😇</label>
+<label><input type="radio" name="q5" value="5"> Guess who's back</label>
+<label><input type="radio" name="q5" value="3"> Random reel</label>
+<label><input type="radio" name="q5" value="0"> Pretend nothing happened</label>
+</div>
+
+<div style="text-align:center;">
+<button onclick="calculateVibe()">Calculate Vibe</button>
+</div>
+
+</div>
+
+<div id="resultSection" class="hidden">
+
+<h2>🔬 Running Advanced Vibe Analysis...</h2>
+
+<h3 style="color:#38bdf8;">
+Analyzing Subject: Anu
+</h3>
+
+<p id="analysisText" class="small-text">
+Checking communication patterns...
+</p>
+
+<img
+id="analysisGif"
+src="gifs/chandler-sarcastic.gif"
+class="hero-gif">
+
+<div class="meter">
+<div class="fill" id="fill"></div>
+</div>
+
+<div id="gifContainer"></div>
+
+<div id="result"></div>
+
+</div>
+
+<div class="footer">
+Powered by Friends, Coffee, Poor Life Choices and Vibe AI™ v2.0
+</div>
+
+</div>
+
+<script>
+
+function calculateVibe(){
+
+let total = 0;
+
+for(let i=1;i<=5;i++){
+
+const selected =
+document.querySelector(
+'input[name="q'+i+'"]:checked'
+);
+
+if(!selected){
+alert("Please answer all questions 😄");
+return;
+}
+
+total += parseInt(selected.value);
+}
+
+const percent = (total/50)*100;
+
+document.getElementById("quiz").style.display="none";
+document.getElementById("resultSection").classList.remove("hidden");
+
+const messages = [
+"Loading Anu's communication profile...",
+"Consulting Chandler Bing...",
+"Checking response latency...",
+"Scanning for Ghost Energy...",
+"Contacting Central Perk...",
+"Calculating coffee compatibility...",
+"Generating final report..."
+];
+
+let i = 0;
+
+const interval = setInterval(() => {
+
+document.getElementById("analysisText")
+.innerText = messages[i];
+
+i++;
+
+if(i >= messages.length){
+clearInterval(interval);
+}
+
+},900);
+
+setTimeout(() => {
+
+document.getElementById("fill")
+.style.width = percent + "%";
+
+let title = "";
+let text = "";
+let gif = "";
+let ghostScore = "";
+
+if(percent >= 90){
+
+gif = "gifs/joey-how-you-doin.gif";
+title = "🟢 ELITE VIBES";
+text = "Joey Approved 😏<br>Compatibility Extremely Promising";
+ghostScore = "10%";
+}
+
+else if(percent >= 70){
+
+gif = "gifs/phoebe-wow.gif";
+title = "🟡 GOOD VIBES";
+text = "Phoebe sees potential.";
+ghostScore = "35%";
+}
+
+else if(percent >= 40){
+
+gif = "gifs/ross-pivot.gif";
+title = "🟠 CHAOTIC VIBES";
+text = "PIVOT! PIVOT! PIVOT!";
+ghostScore = "65%";
+}
+
+else{
+
+gif = "gifs/monica-shocked.gif";
+title = "🔴 GHOST ENERGY DETECTED";
+text = "Monica is concerned.";
+ghostScore = "100%";
+}
+
+document.getElementById("gifContainer").innerHTML =
+'<img src="' + gif + '">';
+
+document.getElementById("result").innerHTML = `
+
+<div class="result-card">
+
+<h2>${title}</h2>
+
+<p>${text}</p>
+
+<h3>Vibe Score: ${Math.round(percent)}%</h3>
+
+<h3>☕ Coffee Compatibility:
+${Math.round(percent)}%</h3>
+
+<h3>👻 Ghost Detector:
+${ghostScore}</h3>
+
+<hr>
+
+<p>
+Based on extensive research,
+the system recommends:
+</p>
+
+<button onclick="alert('Coffee request submitted ☕')">
+Get Coffee
+</button>
+
+<button onclick="finalChoice()">
+Continue Ghosting
+</button>
+
+</div>
+`;
+
+},2500);
+
+}
+
+function finalChoice(){
+
+alert(
+"ERROR 403\n\nMaximum Ghosting Limit Reached.\n\nPlease choose coffee instead ☕"
+);
+
+}
+
+</script>
+
+</body>
+</html>
