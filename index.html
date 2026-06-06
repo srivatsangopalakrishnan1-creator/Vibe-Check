@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,375 +8,423 @@
 <style>
 
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-margin:0;
-font-family:Segoe UI, Arial, sans-serif;
-background:linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
+background:linear-gradient(135deg,#2e1065,#4c1d95,#6d28d9);
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
 padding:20px;
+color:white;
 }
 
 .container{
 width:100%;
-max-width:800px;
-background:#1e293b;
+max-width:700px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
 padding:30px;
 border-radius:20px;
-box-shadow:0 0 40px rgba(0,0,0,.4);
-}
-
-h1,h2,h3{
+box-shadow:0 10px 40px rgba(0,0,0,.3);
 text-align:center;
 }
 
-.hero-gif{
-display:block;
-margin:0 auto 20px;
-border-radius:15px;
-max-width:300px;
+h1{
+margin-bottom:15px;
 }
 
-.question{
+.subtitle{
+opacity:.8;
 margin-bottom:25px;
-padding:15px;
-background:#273549;
-border-radius:12px;
-}
-
-label{
-display:block;
-margin:10px 0;
-cursor:pointer;
-}
-
-input[type="radio"]{
-margin-right:10px;
 }
 
 button{
-background:#38bdf8;
 border:none;
-padding:12px 24px;
-border-radius:10px;
+padding:12px 25px;
+border-radius:12px;
+cursor:pointer;
 font-size:16px;
 font-weight:bold;
-cursor:pointer;
-margin:5px;
+background:#c084fc;
+color:white;
+transition:.3s;
 }
 
 button:hover{
-transform:scale(1.03);
+transform:scale(1.05);
 }
 
 .hidden{
 display:none;
 }
 
-.meter{
-height:28px;
-background:#334155;
-border-radius:30px;
-overflow:hidden;
-margin-top:20px;
-}
-
-.fill{
-height:100%;
-width:0%;
-transition:width 2s ease;
-background:linear-gradient(
-90deg,
-#ef4444,
-#facc15,
-#22c55e
-);
-}
-
-.result-card{
-margin-top:20px;
-padding:20px;
-background:#273549;
+.question-box{
+background:rgba(255,255,255,.08);
+padding:25px;
 border-radius:15px;
-text-align:center;
+margin-top:20px;
+}
+
+.question{
+font-size:22px;
+margin-bottom:25px;
+}
+
+.option{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+border-radius:10px;
+background:rgba(255,255,255,.12);
+cursor:pointer;
+transition:.3s;
+}
+
+.option:hover{
+background:rgba(255,255,255,.22);
+}
+
+.progress{
+margin-bottom:20px;
+opacity:.8;
+}
+
+#nextBtn{
+margin-top:20px;
+}
+
+.result{
+font-size:22px;
+line-height:1.8;
+}
+
+#noBtn{
+position:relative;
 }
 
 .footer{
 margin-top:25px;
-text-align:center;
 opacity:.7;
 font-size:14px;
 }
 
-#gifContainer{
-text-align:center;
-margin-top:20px;
-}
-
-#gifContainer img{
-border-radius:15px;
-max-width:320px;
-}
-
-.small-text{
-text-align:center;
-font-style:italic;
-opacity:.8;
-}
-
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<div id="quiz">
+<!-- Landing Screen -->
 
-<img
-src="gifs/joey-how-you-doin.gif"
-class="hero-gif">
+<div id="welcome">
 
 <h1>✨ Anu's Official Vibe Assessment ✨</h1>
 
-<p style="text-align:center;">
+<p class="subtitle">
 Authorized by absolutely nobody.
 </p>
 
-<p style="text-align:center;">
+<p style="margin-bottom:30px;">
 A scientifically unscientific compatibility assessment.
 </p>
 
-<div class="question">
-<h3>1. How long should it normally take you to reply?</h3>
-<label><input type="radio" name="q1" value="10"> Under 10 minutes</label>
-<label><input type="radio" name="q1" value="8"> Within an hour</label>
-<label><input type="radio" name="q1" value="6"> Same day</label>
-<label><input type="radio" name="q1" value="4"> Depends</label>
-<label><input type="radio" name="q1" value="0"> What is a reply?</label>
+<button onclick="startQuiz()">
+👉 Inga Click Pannu
+</button>
+
 </div>
 
-<div class="question">
-<h3>2. A message arrives from someone you like.</h3>
-<label><input type="radio" name="q2" value="10"> Reply immediately</label>
-<label><input type="radio" name="q2" value="8"> Pretend to be busy first</label>
-<label><input type="radio" name="q2" value="6"> Reply later</label>
-<label><input type="radio" name="q2" value="3"> Open and forget</label>
-<label><input type="radio" name="q2" value="0"> Vanish into another dimension</label>
+<!-- Quiz Screen -->
+
+<div id="quiz" class="hidden">
+
+<div class="progress" id="progress">
+Question 1 / 6
 </div>
 
-<div class="question">
-<h3>3. Communication Style?</h3>
-<label><input type="radio" name="q3" value="10"> Golden Retriever</label>
-<label><input type="radio" name="q3" value="8"> Normal Human</label>
-<label><input type="radio" name="q3" value="6"> Mysterious</label>
-<label><input type="radio" name="q3" value="3"> Secret Agent</label>
-<label><input type="radio" name="q3" value="0"> Witness Protection Program</label>
-</div>
+<div class="question-box">
 
-<div class="question">
-<h3>4. Someone sends you a meme.</h3>
-<label><input type="radio" name="q4" value="10"> Send a better meme</label>
-<label><input type="radio" name="q4" value="8"> React instantly</label>
-<label><input type="radio" name="q4" value="6"> Respond later</label>
-<label><input type="radio" name="q4" value="3"> Like and disappear</label>
-<label><input type="radio" name="q4" value="0"> Return after three weeks</label>
-</div>
+<div class="question" id="questionText"></div>
 
-<div class="question">
-<h3>5. Your comeback message after disappearing?</h3>
-<label><input type="radio" name="q5" value="10"> Sorry, life got busy</label>
-<label><input type="radio" name="q5" value="7"> Heyyy 😇</label>
-<label><input type="radio" name="q5" value="5"> Guess who's back</label>
-<label><input type="radio" name="q5" value="3"> Random reel</label>
-<label><input type="radio" name="q5" value="0"> Pretend nothing happened</label>
-</div>
+<div id="options"></div>
 
-<div style="text-align:center;">
-<button onclick="calculateVibe()">Calculate Vibe</button>
+<button id="nextBtn" onclick="nextQuestion()" disabled>
+Adutha Question ➜
+</button>
+
 </div>
 
 </div>
 
-<div id="resultSection" class="hidden">
+<!-- Result Screen -->
 
-<h2>🔬 Running Advanced Vibe Analysis...</h2>
+<div id="resultScreen" class="hidden">
 
-<h3 style="color:#38bdf8;">
-Analyzing Subject: Anu
-</h3>
+<h1>🎉 Assessment Complete 🎉</h1>
 
-<p id="analysisText" class="small-text">
-Checking communication patterns...
+<div class="result">
+
+<p>
+After extensive research,
+careful analysis,
+and absolutely zero scientific validation...
 </p>
 
-<img
-id="analysisGif"
-src="gifs/chandler-sarcastic.gif"
-class="hero-gif">
+<br>
 
-<div class="meter">
-<div class="fill" id="fill"></div>
-</div>
+<p>
+✅ Vibes: Approved
+</p>
 
-<div id="gifContainer"></div>
+<p>
+✅ Meme Compatibility: High
+</p>
 
-<div id="result"></div>
+<p>
+✅ Chocolate Eligibility: Approved
+</p>
+
+<p>
+✅ Ice Cream Eligibility: Approved
+</p>
+
+<p>
+✅ Meeting Request: Approved
+</p>
+
+<br>
+
+<h2>
+☕🍫🍦
+</h2>
 
 </div>
 
 <div class="footer">
-Powered by Friends, Coffee, Poor Life Choices and Vibe AI™ v2.0
+Powered by Violet Energy™, Memes and Poor Life Decisions.
+</div>
+
 </div>
 
 </div>
 
 <script>
 
-function calculateVibe(){
+let currentQuestion = 0;
+let selectedAnswer = null;
 
-let total = 0;
+const questions = [
 
-for(let i=1;i<=5;i++){
+{
+question:"🎤 Suppose we get stuck on a 5-hour road trip. Which topic would keep you awake?",
+answers:[
+"Travel stories",
+"Food",
+"Memes and nonsense",
+"Random life updates",
+"Pure chaos"
+]
+},
 
-const selected =
-document.querySelector(
-'input[name="q'+i+'"]:checked'
-);
+{
+question:"📊 Scientific Evaluation Required. How entertaining am I?",
+answers:[
+"Netflix Subscription",
+"YouTube Rabbit Hole",
+"Weekend Special",
+"Occasionally Funny",
+"Windows Update"
+]
+},
 
-if(!selected){
-alert("Please answer all questions 😄");
-return;
+{
+question:"📱 A message arrives from me...",
+answers:[
+"Reply immediately",
+"Pretend to be busy first",
+"Reply later",
+"Open and forget",
+"Vanish into another dimension"
+]
+},
+
+{
+question:"😂 When I send you a meme...",
+answers:[
+"Send a better meme",
+"React instantly",
+"Respond later",
+"Like and disappear",
+"Return after three weeks"
+]
+},
+
+{
+question:"⚠️ When Srivatsan suddenly sends a flirty message, what happens inside your head?",
+answers:[
+"Awww",
+"Let him cook",
+"Why is he like this?",
+"Ivan vara enna romba sodhikran",
+"System Error"
+]
+},
+
+{
+question:"🍫 FINAL BOSS QUESTION 🍦<br><br>Next week I will be in Theni.<br><br>Chocolate vaangitharen.<br>Ice cream vaangitharen.<br><br>Meet pannalama?",
+answers:[
+"Yes",
+"Maybe",
+"No"
+]
 }
 
-total += parseInt(selected.value);
-}
-
-const percent = (total/50)*100;
-
-document.getElementById("quiz").style.display="none";
-document.getElementById("resultSection").classList.remove("hidden");
-
-const messages = [
-"Loading Anu's communication profile...",
-"Consulting Chandler Bing...",
-"Checking response latency...",
-"Scanning for Ghost Energy...",
-"Contacting Central Perk...",
-"Calculating coffee compatibility...",
-"Generating final report..."
 ];
 
-let i = 0;
+function startQuiz(){
 
-const interval = setInterval(() => {
+document.getElementById("welcome").classList.add("hidden");
+document.getElementById("quiz").classList.remove("hidden");
 
-document.getElementById("analysisText")
-.innerText = messages[i];
+loadQuestion();
 
-i++;
-
-if(i >= messages.length){
-clearInterval(interval);
 }
 
-},900);
+function loadQuestion(){
 
-setTimeout(() => {
+selectedAnswer = null;
 
-document.getElementById("fill")
-.style.width = percent + "%";
+document.getElementById("nextBtn").disabled = true;
 
-let title = "";
-let text = "";
-let gif = "";
-let ghostScore = "";
+document.getElementById("progress").innerHTML =
+`Question ${currentQuestion+1} / ${questions.length}`;
 
-if(percent >= 90){
+document.getElementById("questionText").innerHTML =
+questions[currentQuestion].question;
 
-gif = "gifs/joey-how-you-doin.gif";
-title = "🟢 ELITE VIBES";
-text = "Joey Approved 😏<br>Compatibility Extremely Promising";
-ghostScore = "10%";
+let optionsHtml = "";
+
+questions[currentQuestion].answers.forEach((answer,index)=>{
+
+if(currentQuestion === 5){
+
+if(answer === "Yes"){
+
+optionsHtml += `
+<button class="option"
+onclick="selectAnswer('Yes')">
+Yes
+</button>
+`;
+
 }
 
-else if(percent >= 70){
+else if(answer === "Maybe"){
 
-gif = "gifs/phoebe-wow.gif";
-title = "🟡 GOOD VIBES";
-text = "Phoebe sees potential.";
-ghostScore = "35%";
-}
+optionsHtml += `
+<button
+class="option"
+id="maybeBtn"
+onmouseover="becomeYes(this)"
+onclick="selectAnswer('Yes')">
+Maybe
+</button>
+`;
 
-else if(percent >= 40){
-
-gif = "gifs/ross-pivot.gif";
-title = "🟠 CHAOTIC VIBES";
-text = "PIVOT! PIVOT! PIVOT!";
-ghostScore = "65%";
 }
 
 else{
 
-gif = "gifs/monica-shocked.gif";
-title = "🔴 GHOST ENERGY DETECTED";
-text = "Monica is concerned.";
-ghostScore = "100%";
+optionsHtml += `
+<button
+class="option"
+id="noBtn"
+onmouseover="runAway(this)">
+No
+</button>
+`;
+
 }
 
-document.getElementById("gifContainer").innerHTML =
-'<img src="' + gif + '">';
+}
 
-document.getElementById("result").innerHTML = `
+else{
 
-<div class="result-card">
-
-<h2>${title}</h2>
-
-<p>${text}</p>
-
-<h3>Vibe Score: ${Math.round(percent)}%</h3>
-
-<h3>☕ Coffee Compatibility:
-${Math.round(percent)}%</h3>
-
-<h3>👻 Ghost Detector:
-${ghostScore}</h3>
-
-<hr>
-
-<p>
-Based on extensive research,
-the system recommends:
-</p>
-
-<button onclick="alert('Coffee request submitted ☕')">
-Get Coffee
-</button>
-
-<button onclick="finalChoice()">
-Continue Ghosting
-</button>
-
+optionsHtml += `
+<div class="option"
+onclick="selectAnswer('${answer}')">
+${answer}
 </div>
 `;
 
-},2500);
+}
+
+});
+
+document.getElementById("options").innerHTML =
+optionsHtml;
 
 }
 
-function finalChoice(){
+function selectAnswer(answer){
 
-alert(
-"ERROR 403\n\nMaximum Ghosting Limit Reached.\n\nPlease choose coffee instead ☕"
-);
+selectedAnswer = answer;
+
+document.getElementById("nextBtn").disabled = false;
+
+}
+
+function nextQuestion(){
+
+if(currentQuestion < questions.length-1){
+
+currentQuestion++;
+
+loadQuestion();
+
+}
+else{
+
+showResult();
+
+}
+
+}
+
+function showResult(){
+
+document.getElementById("quiz")
+.classList.add("hidden");
+
+document.getElementById("resultScreen")
+.classList.remove("hidden");
+
+}
+
+function becomeYes(btn){
+
+btn.innerText = "Yes 😇";
+
+}
+
+function runAway(btn){
+
+const x =
+Math.random()*250-125;
+
+const y =
+Math.random()*120-60;
+
+btn.style.transform =
+`translate(${x}px,${y}px)`;
 
 }
 
