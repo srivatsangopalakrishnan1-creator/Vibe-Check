@@ -217,7 +217,9 @@ Powered by Violet Energy™, Memes and Poor Life Decisions.
 </div>
 
 <script>
-
+let currentQuestion = 0;
+let selectedAnswer = null;
+let userAnswers = [];
 let currentQuestion = 0;
 let selectedAnswer = null;
 
@@ -347,9 +349,16 @@ optionsHtml += `
 <button
 class="option"
 id="noBtn"
+style="
+font-size:22px;
+padding:18px 35px;
+background:#ef4444;
+position:relative;
+"
 onmouseover="runAway(this)">
-No
+NO 😈
 </button>
+`;
 `;
 
 }
@@ -377,6 +386,8 @@ optionsHtml;
 function selectAnswer(answer){
 
 selectedAnswer = answer;
+
+userAnswers[currentQuestion] = answer;
 
 document.getElementById("nextBtn").disabled = false;
 
@@ -407,24 +418,77 @@ document.getElementById("quiz")
 document.getElementById("resultScreen")
 .classList.remove("hidden");
 
+const summary = `
+
+🌸 Anu's Official Vibe Assessment 🌸
+
+Q1:
+${userAnswers[0]}
+
+Q2:
+${userAnswers[1]}
+
+Q3:
+${userAnswers[2]}
+
+Q4:
+${userAnswers[3]}
+
+Q5:
+${userAnswers[4]}
+
+Q6:
+${userAnswers[5]}
+
+`;
+
+document.querySelector(".result").innerHTML += `
+
+<br><br>
+
+<button onclick="sendResults()">
+📤 Send Results
+</button>
+
+`;
+
+window.assessmentSummary = summary;
+
+}
+  function sendResults(){
+
+const phoneNumber = "919789885213";
+
+const whatsappURL =
+`https://wa.me/${phoneNumber}?text=${encodeURIComponent(window.assessmentSummary)}`;
+
+window.open(
+whatsappURL,
+"_blank"
+);
+
 }
 
 function becomeYes(btn){
 
 btn.innerText = "Yes 😇";
 
+btn.style.background = "#22c55e";
+
 }
 
 function runAway(btn){
 
+btn.style.transform = "scale(0.4)";
+
 const x =
-Math.random()*250-125;
+Math.random()*350 - 175;
 
 const y =
-Math.random()*120-60;
+Math.random()*150 - 75;
 
-btn.style.transform =
-`translate(${x}px,${y}px)`;
+btn.style.left = x + "px";
+btn.style.top = y + "px";
 
 }
 
