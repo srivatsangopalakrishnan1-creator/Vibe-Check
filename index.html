@@ -274,7 +274,7 @@ button:hover {
 
     <hr class="form-divider">
 
-    <button onclick="startQuiz()">📋 Case Details பாக்க — Inga Click Pannu</button>
+    <button onclick="startQuiz()">📋 Case Details paaka — Inga Click Pannu</button>
 
   </div>
 
@@ -290,7 +290,7 @@ button:hover {
 
   <!-- Result Screen -->
   <div id="resultScreen" class="hidden">
-    <h1>🎉 Assessment Complete 🎉</h1>
+    <h1>✅ Case Closed 📁</h1>
     <div class="result" id="resultContent">
       <p>After extensive research,<br>careful analysis,<br>and absolutely zero scientific validation...</p>
       <br>
@@ -302,7 +302,10 @@ button:hover {
       <br>
       <h2>☕🍫🍦</h2>
       <br>
-      <button class="send-btn" onclick="sendResults()">📤 Send Results to Vatsan</button>
+      <button class="send-btn" onclick="sendResults()">📤 Send Results</button>
+      <p style="margin-top:14px; font-size:13px; opacity:0.55; font-style:italic;">
+        Seeing the answers I'll pretend like am surprised 😜
+      </p>
     </div>
     <div class="footer">Powered by Violet Energy™, Memes and Poor Life Decisions.</div>
   </div>
@@ -329,22 +332,22 @@ const questions = [
   },
 
   {
-    question: "💬 Someone makes you genuinely laugh on text. What do you do?",
+    question: "💬 Someone makes you genuinely laugh on text(kandipa naa illa). What do you do?",
     answers: [
       "Reply faster than usual 👀",
       "Send a longer message back",
       "Screenshot and show friends",
-      "Laugh alone and say nothing like a gremlin",
-      "Ignore them (asking for a friend)"
+      "Laugh alone and say nothing",
+      "Ignore them"
     ]
   },
 
   {
     question: "📱 A message arrives from me...",
     answers: [
-      "Reply immediately",
+      "Notification paathutu: aathi ivanaa",
       "Pretend to be busy first",
-      "Reply later",
+      "Vandhutanya, vandhutanya!",
       "Open and forget",
       "Vanish into another dimension"
     ]
@@ -353,27 +356,25 @@ const questions = [
   {
     question: "😂 When I send you a meme...",
     answers: [
-      "Send a better meme",
-      "React instantly",
-      "Respond later",
+      "idhellam oru memenu anupuraan",
+      "Poda poi vaera vaela irrundha paaru",
+      "paakamalae 😂 podradhu",
       "Like and disappear",
-      "Return after three weeks"
-    ]
+      ]
   },
 
   {
-    question: "⚠️ When Srivatsan suddenly sends a flirty message, what happens inside your head?",
+    question: "⚠️ When I suddenly try to send a flirty message, Nee enna nenapa?",
     answers: [
-      "Awww",
-      "Let him cook",
-      "Why is he like this?",
+      "AAHAAN",
+      "Saami namma baasha paesudhu pa",
+      "Dai edra aruvaala 😂",
       "Ivan vara enna romba sodhikran",
-      "System Error"
-    ]
+      ]
   },
 
   {
-    question: "🍫 FINAL BOSS QUESTION 🍦<br><br>Next week I will be in Theni.<br><br>Chocolate vaangitharen.<br>Ice cream vaangitharen.<br><br>Meet pannalama?",
+    question: "🍫 FINAL BOSS QUESTION 🍦<br><br>Next week I will be in Theni.<br><br>Chocolate vaangitharen.<br>Biriyani vaangitharaen.<br><br>Ice creamum vaangitharen.<br><br>Meet pannalama?",
     answers: ["Yes", "Maybe", "No"]
   }
 
@@ -388,6 +389,7 @@ function startQuiz() {
 function loadQuestion() {
   selectedAnswer = null;
   document.getElementById("nextBtn").disabled = true;
+  document.getElementById("nextBtn").innerHTML = currentQuestion === 5 ? "Submit pannu 📨" : "Adutha Question ➜";
   document.getElementById("progress").innerHTML = `Question ${currentQuestion + 1} / ${questions.length}`;
   document.getElementById("questionText").innerHTML = questions[currentQuestion].question;
 
