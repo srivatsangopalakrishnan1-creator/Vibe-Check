@@ -7,112 +7,159 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-background:linear-gradient(135deg,#2e1065,#4c1d95,#6d28d9);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-color:white;
+body {
+  background: linear-gradient(135deg, #2e1065, #4c1d95, #6d28d9);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: white;
 }
 
-.container{
-width:100%;
-max-width:700px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(10px);
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,.3);
-text-align:center;
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
-h1{
-margin-bottom:15px;
+h1 {
+  margin-bottom: 15px;
 }
 
-.subtitle{
-opacity:.8;
-margin-bottom:25px;
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 25px;
 }
 
-button{
-border:none;
-padding:12px 25px;
-border-radius:12px;
-cursor:pointer;
-font-size:16px;
-font-weight:bold;
-background:#c084fc;
-color:white;
-transition:.3s;
+button {
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  background: #c084fc;
+  color: white;
+  transition: 0.3s;
 }
 
-button:hover{
-transform:scale(1.05);
+button:hover {
+  transform: scale(1.05);
 }
 
-.hidden{
-display:none;
+.hidden {
+  display: none;
 }
 
-.question-box{
-background:rgba(255,255,255,.08);
-padding:25px;
-border-radius:15px;
-margin-top:20px;
+.question-box {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 20px;
 }
 
-.question{
-font-size:22px;
-margin-bottom:25px;
+.question {
+  font-size: 22px;
+  margin-bottom: 25px;
 }
 
-.option{
-display:block;
-width:100%;
-margin:10px 0;
-padding:12px;
-border-radius:10px;
-background:rgba(255,255,255,.12);
-cursor:pointer;
-transition:.3s;
+.option {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.option:hover{
-background:rgba(255,255,255,.22);
+.option:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.progress{
-margin-bottom:20px;
-opacity:.8;
+.progress {
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
-#nextBtn{
-margin-top:20px;
+#nextBtn {
+  margin-top: 20px;
 }
 
-.result{
-font-size:22px;
-line-height:1.8;
+.result {
+  font-size: 20px;
+  line-height: 1.8;
 }
 
-#noBtn{
-position:relative;
+.footer {
+  margin-top: 25px;
+  opacity: 0.7;
+  font-size: 14px;
 }
 
-.footer{
-margin-top:25px;
-opacity:.7;
-font-size:14px;
+/* No button wrapper — needed for mobile repositioning */
+#noBtnWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  margin: 10px 0;
+}
+
+#noBtn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  padding: 12px 25px;
+  background: #ef4444;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+  white-space: nowrap;
+  /* prevent transform from being hijacked by hover scale */
+}
+
+#noBtn:hover {
+  transform: none;
+  background: #dc2626;
+}
+
+.send-btn {
+  margin-top: 20px;
+  background: #22c55e;
+  font-size: 18px;
+  padding: 14px 30px;
+  border-radius: 14px;
+  display: inline-block;
+}
+
+.send-btn:hover {
+  background: #16a34a;
+  transform: scale(1.05);
 }
 
 </style>
@@ -122,371 +169,241 @@ font-size:14px;
 
 <div class="container">
 
-<!-- Landing Screen -->
+  <!-- Landing Screen -->
+  <div id="welcome">
+    <h1>✨ Anu's Official Vibe Assessment ✨</h1>
+    <p class="subtitle">Authorized by absolutely nobody.</p>
+    <p style="margin-bottom:30px;">A scientifically unscientific compatibility assessment.</p>
+    <button onclick="startQuiz()">👉 Inga Click Pannu</button>
+  </div>
 
-<div id="welcome">
+  <!-- Quiz Screen -->
+  <div id="quiz" class="hidden">
+    <div class="progress" id="progress">Question 1 / 6</div>
+    <div class="question-box">
+      <div class="question" id="questionText"></div>
+      <div id="options"></div>
+      <button id="nextBtn" onclick="nextQuestion()" disabled>Adutha Question ➜</button>
+    </div>
+  </div>
 
-<h1>✨ Anu's Official Vibe Assessment ✨</h1>
-
-<p class="subtitle">
-Authorized by absolutely nobody.
-</p>
-
-<p style="margin-bottom:30px;">
-A scientifically unscientific compatibility assessment.
-</p>
-
-<button onclick="startQuiz()">
-👉 Inga Click Pannu
-</button>
-
-</div>
-
-<!-- Quiz Screen -->
-
-<div id="quiz" class="hidden">
-
-<div class="progress" id="progress">
-Question 1 / 6
-</div>
-
-<div class="question-box">
-
-<div class="question" id="questionText"></div>
-
-<div id="options"></div>
-
-<button id="nextBtn" onclick="nextQuestion()" disabled>
-Adutha Question ➜
-</button>
-
-</div>
-
-</div>
-
-<!-- Result Screen -->
-
-<div id="resultScreen" class="hidden">
-
-<h1>🎉 Assessment Complete 🎉</h1>
-
-<div class="result">
-
-<p>
-After extensive research,
-careful analysis,
-and absolutely zero scientific validation...
-</p>
-
-<br>
-
-<p>
-✅ Vibes: Approved
-</p>
-
-<p>
-✅ Meme Compatibility: High
-</p>
-
-<p>
-✅ Chocolate Eligibility: Approved
-</p>
-
-<p>
-✅ Ice Cream Eligibility: Approved
-</p>
-
-<p>
-✅ Meeting Request: Approved
-</p>
-
-<br>
-
-<h2>
-☕🍫🍦
-</h2>
-
-</div>
-
-<div class="footer">
-Powered by Violet Energy™, Memes and Poor Life Decisions.
-</div>
-
-</div>
+  <!-- Result Screen -->
+  <div id="resultScreen" class="hidden">
+    <h1>🎉 Assessment Complete 🎉</h1>
+    <div class="result" id="resultContent">
+      <p>After extensive research,<br>careful analysis,<br>and absolutely zero scientific validation...</p>
+      <br>
+      <p>✅ Vibes: Approved</p>
+      <p>✅ Meme Compatibility: High</p>
+      <p>✅ Chocolate Eligibility: Approved</p>
+      <p>✅ Ice Cream Eligibility: Approved</p>
+      <p>✅ Meeting Request: Approved</p>
+      <br>
+      <h2>☕🍫🍦</h2>
+      <br>
+      <button class="send-btn" onclick="sendResults()">📤 Send Results to Vatsan</button>
+    </div>
+    <div class="footer">Powered by Violet Energy™, Memes and Poor Life Decisions.</div>
+  </div>
 
 </div>
 
 <script>
-  let currentQuestion = 0;
+
+let currentQuestion = 0;
 let selectedAnswer = null;
 let userAnswers = [];
 
 const questions = [
 
-{
-question:"🎤 Suppose we get stuck on a 5-hour road trip. Which topic would keep you awake?",
-answers:[
-"Travel stories",
-"Food",
-"Memes and nonsense",
-"Random life updates",
-"Pure chaos"
-]
-},
+  {
+    question: "🌙 It's a random Tuesday night. What's your default mode?",
+    answers: [
+      "Doom scrolling reels alone",
+      "Texting someone random",
+      "Watching something with snacks",
+      "Overthinking life",
+      "All of the above simultaneously"
+    ]
+  },
 
-{
-question:"📊 Scientific Evaluation Required. How entertaining am I?",
-answers:[
-"Netflix Subscription",
-"YouTube Rabbit Hole",
-"Weekend Special",
-"Occasionally Funny",
-"Windows Update"
-]
-},
+  {
+    question: "💬 Someone makes you genuinely laugh on text. What do you do?",
+    answers: [
+      "Reply faster than usual 👀",
+      "Send a longer message back",
+      "Screenshot and show friends",
+      "Laugh alone and say nothing like a gremlin",
+      "Ignore them (asking for a friend)"
+    ]
+  },
 
-{
-question:"📱 A message arrives from me...",
-answers:[
-"Reply immediately",
-"Pretend to be busy first",
-"Reply later",
-"Open and forget",
-"Vanish into another dimension"
-]
-},
+  {
+    question: "📱 A message arrives from me...",
+    answers: [
+      "Reply immediately",
+      "Pretend to be busy first",
+      "Reply later",
+      "Open and forget",
+      "Vanish into another dimension"
+    ]
+  },
 
-{
-question:"😂 When I send you a meme...",
-answers:[
-"Send a better meme",
-"React instantly",
-"Respond later",
-"Like and disappear",
-"Return after three weeks"
-]
-},
+  {
+    question: "😂 When I send you a meme...",
+    answers: [
+      "Send a better meme",
+      "React instantly",
+      "Respond later",
+      "Like and disappear",
+      "Return after three weeks"
+    ]
+  },
 
-{
-question:"⚠️ When Srivatsan suddenly sends a flirty message, what happens inside your head?",
-answers:[
-"Awww",
-"Let him cook",
-"Why is he like this?",
-"Ivan vara enna romba sodhikran",
-"System Error"
-]
-},
+  {
+    question: "⚠️ When Srivatsan suddenly sends a flirty message, what happens inside your head?",
+    answers: [
+      "Awww",
+      "Let him cook",
+      "Why is he like this?",
+      "Ivan vara enna romba sodhikran",
+      "System Error"
+    ]
+  },
 
-{
-question:"🍫 FINAL BOSS QUESTION 🍦<br><br>Next week I will be in Theni.<br><br>Chocolate vaangitharen.<br>Ice cream vaangitharen.<br><br>Meet pannalama?",
-answers:[
-"Yes",
-"Maybe",
-"No"
-]
-}
+  {
+    question: "🍫 FINAL BOSS QUESTION 🍦<br><br>Next week I will be in Theni.<br><br>Chocolate vaangitharen.<br>Ice cream vaangitharen.<br><br>Meet pannalama?",
+    answers: ["Yes", "Maybe", "No"]
+  }
 
 ];
 
-function startQuiz(){
-
-document.getElementById("welcome").classList.add("hidden");
-document.getElementById("quiz").classList.remove("hidden");
-
-loadQuestion();
-
+function startQuiz() {
+  document.getElementById("welcome").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  loadQuestion();
 }
 
-function loadQuestion(){
+function loadQuestion() {
+  selectedAnswer = null;
+  document.getElementById("nextBtn").disabled = true;
+  document.getElementById("progress").innerHTML = `Question ${currentQuestion + 1} / ${questions.length}`;
+  document.getElementById("questionText").innerHTML = questions[currentQuestion].question;
 
-selectedAnswer = null;
+  let optionsHtml = "";
 
-document.getElementById("nextBtn").disabled = true;
+  if (currentQuestion === 5) {
 
-document.getElementById("progress").innerHTML =
-`Question ${currentQuestion+1} / ${questions.length}`;
+    optionsHtml += `
+      <button class="option" style="background:#22c55e;" onclick="selectAnswer('Yes')">Yes 🥳</button>
+    `;
 
-document.getElementById("questionText").innerHTML =
-questions[currentQuestion].question;
+    optionsHtml += `
+      <button class="option" id="maybeBtn" onmouseenter="becomeYes(this)" ontouchstart="becomeYes(this)" onclick="selectAnswer('Yes')">Maybe</button>
+    `;
 
-let optionsHtml = "";
+    optionsHtml += `
+      <div id="noBtnWrapper">
+        <button id="noBtn" onclick="handleNoClick()" ontouchstart="handleNoClick()">NO 😈</button>
+      </div>
+    `;
 
-questions[currentQuestion].answers.forEach((answer,index)=>{
+  } else {
 
-if(currentQuestion === 5){
+    questions[currentQuestion].answers.forEach((answer) => {
+      optionsHtml += `
+        <button class="option" onclick="selectAnswer('${answer}')">${answer}</button>
+      `;
+    });
 
-if(answer === "Yes"){
+  }
 
-optionsHtml += `
-<button class="option"
-onclick="selectAnswer('Yes')">
-Yes
-</button>
-`;
-
+  document.getElementById("options").innerHTML = optionsHtml;
 }
 
-else if(answer === "Maybe"){
+function selectAnswer(answer) {
+  selectedAnswer = answer;
+  userAnswers[currentQuestion] = answer;
+  document.getElementById("nextBtn").disabled = false;
 
-optionsHtml += `
-<button
-class="option"
-id="maybeBtn"
-onmouseover="becomeYes(this)"
-onclick="selectAnswer('Yes')">
-Maybe
-</button>
-`;
-
+  // Highlight selected on normal questions
+  if (currentQuestion !== 5) {
+    document.querySelectorAll('.option').forEach(btn => {
+      btn.style.background = 'rgba(255,255,255,0.12)';
+    });
+    event.target.style.background = 'rgba(192, 132, 252, 0.5)';
+  }
 }
 
-else{
-
-optionsHtml += `
-<button
-class="option"
-id="noBtn"
-style="
-font-size:22px;
-padding:18px 35px;
-background:#ef4444;
-position:relative;
-"
-onmouseover="runAway(this)">
-NO 😈
-</button>
-`;
-
+function nextQuestion() {
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    loadQuestion();
+  } else {
+    showResult();
+  }
 }
 
+function showResult() {
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("resultScreen").classList.remove("hidden");
+
+  const summary =
+`🌸 Anu's Official Vibe Assessment 🌸
+
+Q1: ${userAnswers[0]}
+Q2: ${userAnswers[1]}
+Q3: ${userAnswers[2]}
+Q4: ${userAnswers[3]}
+Q5: ${userAnswers[4]}
+Q6: ${userAnswers[5]}`;
+
+  window.assessmentSummary = summary;
 }
 
-else{
-
-optionsHtml += `
-<div class="option"
-onclick="selectAnswer('${answer}')">
-${answer}
-</div>
-`;
-
+function sendResults() {
+  const phoneNumber = "919789885213";
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(window.assessmentSummary)}`;
+  window.open(whatsappURL, "_blank");
 }
 
-});
-
-document.getElementById("options").innerHTML =
-optionsHtml;
-
+function becomeYes(btn) {
+  btn.innerText = "Yes 😇";
+  btn.style.background = "#22c55e";
+  btn.onmouseenter = null;
+  btn.ontouchstart = null;
+  btn.onclick = () => selectAnswer('Yes');
 }
 
-function selectAnswer(answer){
+// ── No button: works on both desktop and mobile ──────────────────────────────
 
-selectedAnswer = answer;
-
-userAnswers[currentQuestion] = answer;
-
-document.getElementById("nextBtn").disabled = false;
-
+function handleNoClick() {
+  moveNoButton();
 }
 
-function nextQuestion(){
+function moveNoButton() {
+  const wrapper = document.getElementById("noBtnWrapper");
+  const btn = document.getElementById("noBtn");
+  if (!wrapper || !btn) return;
 
-if(currentQuestion < questions.length-1){
+  const wrapperRect = wrapper.getBoundingClientRect();
 
-currentQuestion++;
+  // How far can the button move inside the wrapper?
+  const btnW = btn.offsetWidth;
+  const btnH = btn.offsetHeight;
 
-loadQuestion();
+  // Expand wrapper so the button has room to escape
+  wrapper.style.height = "120px";
 
-}
-else{
+  const maxX = Math.max(wrapperRect.width - btnW, 10);
+  const maxY = Math.max(120 - btnH, 10);
 
-showResult();
+  const randX = Math.floor(Math.random() * maxX);
+  const randY = Math.floor(Math.random() * maxY);
 
-}
-
-}
-
-function showResult(){
-
-document.getElementById("quiz")
-.classList.add("hidden");
-
-document.getElementById("resultScreen")
-.classList.remove("hidden");
-
-const summary = `
-
-🌸 Anu's Official Vibe Assessment 🌸
-
-Q1:
-${userAnswers[0]}
-
-Q2:
-${userAnswers[1]}
-
-Q3:
-${userAnswers[2]}
-
-Q4:
-${userAnswers[3]}
-
-Q5:
-${userAnswers[4]}
-
-Q6:
-${userAnswers[5]}
-
-`;
-
-document.querySelector(".result").innerHTML += `
-
-<br><br>
-
-<button onclick="sendResults()">
-📤 Send Results
-</button>
-
-`;
-
-window.assessmentSummary = summary;
-
-}
-  function sendResults(){
-
-const phoneNumber = "919789885213";
-
-const whatsappURL =
-`https://wa.me/${phoneNumber}?text=${encodeURIComponent(window.assessmentSummary)}`;
-
-window.open(
-whatsappURL,
-"_blank"
-);
-
-}
-
-function becomeYes(btn){
-
-btn.innerText = "Yes 😇";
-
-btn.style.background = "#22c55e";
-
-}
-
-function runAway(btn){
-
-btn.style.transform = "scale(0.4)";
-
-const x =
-Math.random()*350 - 175;
-
-const y =
-Math.random()*150 - 75;
-
-btn.style.left = x + "px";
-btn.style.top = y + "px";
-
+  btn.style.left = randX + "px";
+  btn.style.top  = randY + "px";
+  btn.style.transform = "none"; /* clear the initial centering transform */
 }
 
 </script>
